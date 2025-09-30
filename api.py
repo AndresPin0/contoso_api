@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import StreamingResponse
+import asyncio
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -123,4 +125,64 @@ def get_balance(req: BalanceRequest):
         accountId=req.accountId,
         balance=data["balance"],
         currency=data["currency"]
+    )
+
+
+@app.get("/stream")
+async def stream_llm(
+    message: Optional[str] = Query(
+        "Hola, soy un LLM de ejemplo. Estoy transmitiendo este mensaje palabra por palabra.",
+        description="Mensaje a transmitir palabra por palabra"
+    ),
+    delay_ms: int = Query(150, ge=0, le=5000, description="Retraso entre palabras en milisegundos")
+):
+    """
+    Emite un stream de texto plano simulando la escritura de un LLM, palabra por palabra
+    en una sola línea.
+
+    - message: texto a emitir
+    - delay_ms: retardo entre palabras (ms)
+    """
+
+    async def word_stream():
+        for word in message.split():
+            yield f"{word} "
+            await asyncio.sleep(delay_ms / 1000)
+        yield "."
+
+    return StreamingResponse(
+        word_stream(),
+        media_type="text/plain",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no"
+        }
+    )
+
+
+@app.get("/generate_stream")
+async def generate_stream(
+    prompt: Optional[str] = Query(
+        "Dame una respuesta breve simulada por un LLM.",
+        description="Prompt de entrada para la simulación"
+    )
+):
+    """
+    Endpoint alterno inspirado en tu ejemplo: stream de texto plano palabra a palabra
+    usando un generador asíncrono (no bloquea el event loop).
+    """
+
+    async def fake_llm_stream_async(text_prompt: str):
+        text = "Esta es una respuesta simulada como si fuera un LLM."
+        for word in text.split():
+            yield word + " "
+            await asyncio.sleep(0.3)
+
+    return StreamingResponse(
+        fake_llm_stream_async(prompt),
+        media_type="text/plain",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no"
+        }
     )
