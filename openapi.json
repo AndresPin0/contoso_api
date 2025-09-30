@@ -1,143 +1,162 @@
 {
-    "openapi": "3.0.1",
-    "info": {
-      "title": "Contoso Banking API",
-      "description": "API demo para Copilot Studio (List Users, User Profile y Balance Information)",
-      "version": "2.1.0"
-    },
-    "servers": [
-      {
-        "url": "https://contoso-api.onrender.com"
-      }
-    ],
-    "paths": {
-      "/users": {
-        "get": {
-          "summary": "Listar todos los usuarios",
-          "operationId": "listUsers",
-          "responses": {
-            "200": {
-              "description": "Lista de usuarios",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": { "$ref": "#/components/schemas/UserProfile" }
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Contoso Banking API",
+    "description": "API demo para Copilot Studio (User Profile y Balance Information)",
+    "version": "2.0.0"
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Lista todos los usuarios",
+        "description": "Lista todos los usuarios registrados.",
+        "operationId": "listUsers",
+        "responses": {
+          "200": {
+            "description": "Listado de usuarios",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserProfile"
                   }
                 }
               }
             }
           }
         }
-      },
-      "/user/profile": {
-        "get": {
-          "summary": "Obtener perfil de usuario",
-          "operationId": "getUserProfile",
-          "parameters": [
-            {
-              "name": "userId",
-              "in": "query",
-              "required": false,
-              "schema": { "type": "string" },
-              "description": "ID único del usuario"
-            },
-            {
-              "name": "email",
-              "in": "query",
-              "required": false,
-              "schema": { "type": "string" },
-              "description": "Correo electrónico del usuario"
-            },
-            {
-              "name": "name",
-              "in": "query",
-              "required": false,
-              "schema": { "type": "string" },
-              "description": "Nombre completo del usuario"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Perfil del usuario encontrado",
-              "content": {
-                "application/json": {
-                  "schema": { "$ref": "#/components/schemas/UserProfile" }
-                }
-              }
-            },
-            "404": {
-              "description": "Usuario no encontrado"
-            }
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "summary": "Obtiene perfil de usuario",
+        "description": "Devuelve el perfil de usuario según userId, email o name.",
+        "operationId": "getUserProfile",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "ID del usuario"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Email del usuario"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Nombre del usuario"
           }
-        }
-      },
-      "/account/balance": {
-        "post": {
-          "summary": "Obtener balance de una cuenta",
-          "operationId": "getAccountBalance",
-          "requestBody": {
-            "required": true,
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil de usuario encontrado",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/BalanceRequest" }
+                "schema": { "$ref": "#/components/schemas/UserProfile" }
               }
             }
           },
-          "responses": {
-            "200": {
-              "description": "Saldo de la cuenta",
-              "content": {
-                "application/json": {
-                  "schema": { "$ref": "#/components/schemas/BalanceResponse" }
-                }
+          "404": {
+            "description": "Usuario no encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPError" }
               }
-            },
-            "404": {
-              "description": "Cuenta no encontrada"
             }
           }
         }
       }
     },
-    "components": {
-      "schemas": {
-        "Account": {
-          "type": "object",
-          "properties": {
-            "id": { "type": "string", "example": "acc001" },
-            "type": { "type": "string", "example": "Checking" },
-            "currency": { "type": "string", "example": "COP" }
-          }
-        },
-        "UserProfile": {
-          "type": "object",
-          "properties": {
-            "userId": { "type": "string", "example": "user123" },
-            "name": { "type": "string", "example": "Andrés Pino" },
-            "email": { "type": "string", "example": "andres.pino@contoso.com" },
-            "accounts": {
-              "type": "array",
-              "items": { "$ref": "#/components/schemas/Account" }
+    "/account/balance": {
+      "post": {
+        "summary": "Obtiene el saldo de una cuenta",
+        "description": "Devuelve el saldo de una cuenta específica.",
+        "operationId": "getBalance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BalanceRequest" }
             }
           }
         },
-        "BalanceRequest": {
-          "type": "object",
-          "properties": {
-            "accountId": { "type": "string", "example": "acc001" }
+        "responses": {
+          "200": {
+            "description": "Saldo de la cuenta",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BalanceResponse" }
+              }
+            }
           },
-          "required": ["accountId"]
-        },
-        "BalanceResponse": {
-          "type": "object",
-          "properties": {
-            "accountId": { "type": "string", "example": "acc001" },
-            "balance": { "type": "number", "example": 1250000.5 },
-            "currency": { "type": "string", "example": "COP" }
+          "404": {
+            "description": "Cuenta no encontrada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPError" }
+              }
+            }
           }
         }
       }
-    }
-  }
-  
+    },
+    "/stream": {
+      "get": {
+        "summary": "Stream de texto tipo LLM",
+        "description": "Emite un stream de texto plano simulando la escritura de un LLM, palabra por palabra en una sola línea.",
+        "operationId": "streamLlm",
+        "parameters": [
+          {
+            "name": "message",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "Hola, soy un LLM de ejemplo. Estoy transmitiendo este mensaje palabra por palabra."
+            },
+            "description": "Mensaje a transmitir palabra por palabra"
+          },
+          {
+            "name": "delay_ms",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0,
+              "maximum": 5000,
+              "default": 150
+            },
+            "description": "Retraso entre palabras en milisegundos"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stream de texto",
+            "content": {
+              "text/plain": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/generate_stream": {
+      "get": {
+        "summary": "Stream alterno de texto",
+        "description": "Endpoint alterno: stream de texto plano palabra a palabra usando un generador asíncrono.",
+        "operationId": "generateStream",
+        "parameters": [
+          {
+            "name": "prompt",
+            "in
