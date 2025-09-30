@@ -85,6 +85,13 @@ balances_db = {
 # ENDPOINTS
 # -------------------------------
 
+@app.get("/users", response_model=List[UserProfile])
+def list_users():
+    """
+    Lista todos los usuarios registrados.
+    """
+    return list(users_db.values())
+
 @app.get("/user/profile", response_model=UserProfile)
 def get_user_profile(
     userId: Optional[str] = Query(None),
