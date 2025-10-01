@@ -78,8 +78,8 @@ users_db = {
     ),
     "user102": UserProfile(
         userId="user102",
-        name="Andrés Pino",
-        email="andres.pino@contoso.com",
+        name="Andrés Moncayo",
+        email="andres.moncayo@contoso.com",
         accounts=[
             Account(id="acc013", type="Checking", currency="USD"),
             Account(id="acc014", type="Savings", currency="USD"),
