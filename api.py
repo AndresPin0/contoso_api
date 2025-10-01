@@ -65,22 +65,119 @@ users_db = {
             Account(id="acc008", type="Savings", currency="EUR"),
             Account(id="acc009", type="Credit", currency="EUR"),
         ]
+    ),
+    "user101": UserProfile(
+        userId="user101",
+        name="Laura Gómez",
+        email="laura.gomez@contoso.com",
+        accounts=[
+            Account(id="acc010", type="Checking", currency="COP"),
+            Account(id="acc011", type="Savings", currency="COP"),
+            Account(id="acc012", type="Credit", currency="COP"),
+        ]
+    ),
+    "user102": UserProfile(
+        userId="user102",
+        name="Andrés Pino",
+        email="andres.pino@contoso.com",
+        accounts=[
+            Account(id="acc013", type="Checking", currency="USD"),
+            Account(id="acc014", type="Savings", currency="USD"),
+            Account(id="acc015", type="Credit", currency="USD"),
+        ]
+    ),
+    "user103": UserProfile(
+        userId="user103",
+        name="Sofía Ramírez",
+        email="sofia.ramirez@contoso.com",
+        accounts=[
+            Account(id="acc016", type="Checking", currency="EUR"),
+            Account(id="acc017", type="Savings", currency="EUR"),
+            Account(id="acc018", type="Credit", currency="EUR"),
+        ]
+    ),
+    "user104": UserProfile(
+        userId="user104",
+        name="Jorge Martínez",
+        email="jorge.martinez@contoso.com",
+        accounts=[
+            Account(id="acc019", type="Checking", currency="COP"),
+            Account(id="acc020", type="Savings", currency="COP"),
+            Account(id="acc021", type="Credit", currency="COP"),
+        ]
+    ),
+    "user105": UserProfile(
+        userId="user105",
+        name="Ana Castillo",
+        email="ana.castillo@contoso.com",
+        accounts=[
+            Account(id="acc022", type="Checking", currency="USD"),
+            Account(id="acc023", type="Savings", currency="USD"),
+            Account(id="acc024", type="Credit", currency="USD"),
+        ]
+    ),
+    "user106": UserProfile(
+        userId="user106",
+        name="Miguel Rojas",
+        email="miguel.rojas@contoso.com",
+        accounts=[
+            Account(id="acc025", type="Checking", currency="EUR"),
+            Account(id="acc026", type="Savings", currency="EUR"),
+            Account(id="acc027", type="Credit", currency="EUR"),
+        ]
+    ),
+    "user107": UserProfile(
+        userId="user107",
+        name="Camila Herrera",
+        email="camila.herrera@contoso.com",
+        accounts=[
+            Account(id="acc028", type="Checking", currency="COP"),
+            Account(id="acc029", type="Savings", currency="COP"),
+            Account(id="acc030", type="Credit", currency="COP"),
+        ]
     )
 }
 
 balances_db = {
-    # Pepito
     "acc001": {"balance": 1250000.50, "currency": "COP"},
     "acc002": {"balance": 3450000.00, "currency": "COP"},
     "acc003": {"balance": -150000.00, "currency": "COP"},
-    # María
+    
     "acc004": {"balance": 2500.75, "currency": "USD"},
     "acc005": {"balance": 8600.00, "currency": "USD"},
     "acc006": {"balance": -1200.00, "currency": "USD"},
-    # Carlos
+
     "acc007": {"balance": 980.30, "currency": "EUR"},
     "acc008": {"balance": 15000.00, "currency": "EUR"},
     "acc009": {"balance": -500.00, "currency": "EUR"},
+
+    "acc010": {"balance": 430000.00, "currency": "COP"},
+    "acc011": {"balance": 1250000.00, "currency": "COP"},
+    "acc012": {"balance": -25000.00, "currency": "COP"},
+
+    "acc013": {"balance": 720.00, "currency": "USD"},
+    "acc014": {"balance": 5800.50, "currency": "USD"},
+    "acc015": {"balance": -300.00, "currency": "USD"},
+
+    "acc016": {"balance": 1100.00, "currency": "EUR"},
+    "acc017": {"balance": 6400.00, "currency": "EUR"},
+    "acc018": {"balance": -120.00, "currency": "EUR"},
+
+    "acc019": {"balance": 250000.00, "currency": "COP"},
+    "acc020": {"balance": 1340000.00, "currency": "COP"},
+    "acc021": {"balance": -90000.00, "currency": "COP"},
+
+    "acc022": {"balance": 500.00, "currency": "USD"},
+    "acc023": {"balance": 4200.00, "currency": "USD"},
+    "acc024": {"balance": -150.00, "currency": "USD"},
+
+    "acc025": {"balance": 900.00, "currency": "EUR"},
+    "acc026": {"balance": 8700.00, "currency": "EUR"},
+    "acc027": {"balance": -200.00, "currency": "EUR"},
+
+    "acc028": {"balance": 310000.00, "currency": "COP"},
+    "acc029": {"balance": 2750000.00, "currency": "COP"},
+    "acc030": {"balance": -40000.00, "currency": "COP"},
 }
 
 # -------------------------------
